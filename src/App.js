@@ -1,25 +1,32 @@
 import React from 'react'
-import { render } from 'react-dom'
 import moment from 'moment'
+import { getEvents } from './gcal'
+import "react-big-calendar/lib/css/react-big-calendar.css";
 
-import BigCalendar from 'react-big-calendar'
-
-BigCalendar.momentLocalizer(moment)
-
-require('style-loader!css-loader!react-big-calendar/lib/css/react-big-calendar.css')
+import { Calendar, momentLocalizer } from 'react-big-calendar'
+const localizer = momentLocalizer(moment);
 
 class App extends React.Component {
   constructor () {
     super()
+    this.state = {
+      events: []
+    }
+  }
+  componentDidMount () {
+    getEvents((events) => {
+      this.setState({events})
+    })
   }
   render () {
     return (
-      <BigCalendar
-        style={{height: '420px'}}
-        events={[]}
+      <Calendar
+        localizer={localizer}
+        style={{height: '600px'}}
+        events={this.state.events}
       />
     )
   }
 }
 
-render(<App />, document.getElementById('root'))
+export default App
