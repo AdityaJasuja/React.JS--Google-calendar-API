@@ -1,26 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import { render } from 'react-dom'
+import moment from 'moment'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import BigCalendar from 'react-big-calendar'
+
+BigCalendar.momentLocalizer(moment)
+
+require('style-loader!css-loader!react-big-calendar/lib/css/react-big-calendar.css')
+
+class App extends React.Component {
+  constructor () {
+    super()
+  }
+  render () {
+    return (
+      <BigCalendar
+        style={{height: '420px'}}
+        events={[]}
+      />
+    )
+  }
 }
 
-export default App;
+render(<App />, document.getElementById('root'))
